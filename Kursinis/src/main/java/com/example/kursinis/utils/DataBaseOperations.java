@@ -11,7 +11,7 @@ public class DataBaseOperations {
 
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            String DB_URL = "jdbc:mysql://localhost/librarytheory";
+            String DB_URL = "jdbc:mysql://localhost:3306/kursinis";
             String USER = "root";
             String PASS = "";
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
