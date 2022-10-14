@@ -6,6 +6,7 @@ import java.util.*;
 
 public abstract class User implements Serializable {
 
+    private String userId;
     private String name;
     private String phoneNumber;
     private String emailAddress;
@@ -16,7 +17,8 @@ public abstract class User implements Serializable {
     private float salary;
     private Currency currency;
 
-    public User(String login, String name, String phoneNumber, String emailAddress, LocalDate birthDay, String username, String password, boolean isRetired, float salary, Currency currency) {
+    public User(String userId, String name, String phoneNumber, String emailAddress, LocalDate birthDay, String username, String password, boolean isRetired, float salary, Currency currency) {
+        this.userId = userId;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
@@ -26,6 +28,14 @@ public abstract class User implements Serializable {
         this.isRetired = isRetired;
         this.salary = salary;
         this.currency = currency;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getName() {

@@ -7,6 +7,6 @@ module com.example.kursinis {
 
     opens com.example.kursinis to javafx.fxml;
     exports com.example.kursinis;
-    exports com.example.kursinis.fxControllers to javafx.fxml;
     opens com.example.kursinis.fxControllers to javafx.fxml;
+    exports com.example.kursinis.fxControllers;
 }

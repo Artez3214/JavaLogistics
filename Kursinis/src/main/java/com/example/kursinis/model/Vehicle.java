@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 public class Vehicle implements Serializable {
+    private String VehicleId;
     private String type;
     private String carNumber;
     private String wheels;
@@ -24,6 +25,14 @@ public class Vehicle implements Serializable {
         this.manufacturer = manufacturer;
         this.ensurance = ensurance;
         this.dateCreated = dateCreated;
+    }
+
+    public String getVehicleId() {
+        return VehicleId;
+    }
+
+    public void setVehicleId(String vehicleId) {
+        VehicleId = vehicleId;
     }
 
     public String getType() {
