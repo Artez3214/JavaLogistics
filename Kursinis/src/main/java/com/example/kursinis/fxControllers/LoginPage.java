@@ -1,37 +1,46 @@
 package com.example.kursinis.fxControllers;
 
-import com.example.kursinis.HelloApplication;
 import com.example.kursinis.utils.DataBaseOperations;
 import com.example.kursinis.utils.FxUtils;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.fxml.FXML;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.util.ResourceBundle;
 
 public class LoginPage {
     @FXML
+    private AnchorPane loginpages;
+
+    @FXML
     public TextField username;
+
     @FXML
     public PasswordField password;
 
-    public void validate(ActionEvent actionEvent) {
 
+    @FXML
+    public void validate(ActionEvent actionEvent) {
         try
         {
             Connection connection = DataBaseOperations.connectToDb();
             String sql = "SELECT count(*) FROM USER u WHERE u.username = ? AND u.password = ?";
-           // Statement statement = connection.createStatement();
+            // Statement statement = connection.createStatement();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, username.getText());
             preparedStatement.setString(2, password.getText());
@@ -43,7 +52,11 @@ public class LoginPage {
                     FxUtils.alertMessage(Alert.AlertType.ERROR,"Error", "Database error", "There is no such user");
                 }
                 else {
-                    openMainWindow();
+                    Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("main-page.fxml"));
+                    Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                    Scene scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
                 }
             }
         }
@@ -51,23 +64,16 @@ public class LoginPage {
         {
             e.printStackTrace();
         }
-
-
     }
 
-    private void openMainWindow() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(LoginPage.class.getResource("com.example.kursinis.main-page.fxml"));
-        Parent parent = fxmlLoader.load();
-        MainPage mainPage = fxmlLoader.getController();
-        mainPage.setData();
 
-        Scene scene = new Scene(parent);
-        Stage stage = (Stage) username.getScene().getWindow();
-        stage.setTitle("kursinis");
+
+    @FXML
+    public void register(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("register-page.fxml"));
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-    }
-
-    public void register(ActionEvent actionEvent) {
     }
 }

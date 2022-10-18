@@ -3,68 +3,59 @@ package com.example.kursinis.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public abstract class Destination implements Serializable {
-    private String Address;
-    private int destinationId;
-    private String finalDestinationAddress;
-    private String pickupDestinationAddress;
-    private LocalDate pickupDestinationDate;
-    private LocalDate finalDestinationDate;
+public class Destination implements Serializable {
 
-    public Destination(String address, int destinationId, String finalDestinationAddress, String pickupDestinationAddress, LocalDate pickupDestinationDate, LocalDate finalDestinationDate) {
-        Address = address;
-        this.destinationId = destinationId;
-        this.finalDestinationAddress = finalDestinationAddress;
-        this.pickupDestinationAddress = pickupDestinationAddress;
-        this.pickupDestinationDate = pickupDestinationDate;
-        this.finalDestinationDate = finalDestinationDate;
+    private int dessId;
+
+    private String pickupDestinationAddres, finalDestinationAddres;
+
+    private String pickupDestinationDat, finalDestinationDat;
+
+    public Destination(int dessId, String pickupDestinationAddres, String finalDestinationAddres, String pickupDestinationDat, String finalDestinationDat) {
+        this.dessId = dessId;
+        this.pickupDestinationAddres = pickupDestinationAddres;
+        this.finalDestinationAddres = finalDestinationAddres;
+        this.pickupDestinationDat = pickupDestinationDat;
+        this.finalDestinationDat = finalDestinationDat;
     }
 
-    public String getAddress() {
-        return Address;
+    public int getDessId() {
+        return dessId;
     }
 
-    public void setAddress(String address) {
-        Address = address;
+    public void setDesId(int dessId) {
+        this.dessId = dessId;
     }
 
-    public int getDestinationId() {
-        return destinationId;
+    public String getPickupDestinationAddres() {
+        return pickupDestinationAddres;
     }
 
-    public void setDestinationId(int destinationId) {
-        this.destinationId = destinationId;
+    public void setPickupDestinationAddres(String pickupDestinationAddres) {
+        this.pickupDestinationAddres = pickupDestinationAddres;
     }
 
-    public String getFinalDestinationAddress() {
-        return finalDestinationAddress;
+    public String getFinalDestinationAddres() {
+        return finalDestinationAddres;
     }
 
-    public void setFinalDestinationAddress(String finalDestinationAddress) {
-        this.finalDestinationAddress = finalDestinationAddress;
+    public void setFinalDestinationAddres(String finalDestinationAddres) {
+        this.finalDestinationAddres = finalDestinationAddres;
     }
 
-    public String getPickupDestinationAddress() {
-        return pickupDestinationAddress;
+    public String getPickupDestinationDat() {
+        return pickupDestinationDat;
     }
 
-    public void setPickupDestinationAddress(String pickupDestinationAddress) {
-        this.pickupDestinationAddress = pickupDestinationAddress;
+    public void setPickupDestinationDat(String pickupDestinationDat) {
+        this.pickupDestinationDat = pickupDestinationDat;
     }
 
-    public LocalDate getPickupDestinationDate() {
-        return pickupDestinationDate;
+    public String getFinalDestinationDat() {
+        return finalDestinationDat;
     }
 
-    public void setPickupDestinationDate(LocalDate pickupDestinationDate) {
-        this.pickupDestinationDate = pickupDestinationDate;
-    }
-
-    public LocalDate getFinalDestinationDate() {
-        return finalDestinationDate;
-    }
-
-    public void setFinalDestinationDate(LocalDate finalDestinationDate) {
-        this.finalDestinationDate = finalDestinationDate;
+    public void setFinalDestinationDat(String finalDestinationDat) {
+        this.finalDestinationDat = finalDestinationDat;
     }
 }
