@@ -1,5 +1,6 @@
 package com.example.kursinis.fxControllers;
 
+import com.example.kursinis.HelloApplication;
 import com.example.kursinis.utils.DataBaseOperations;
 import com.example.kursinis.utils.FxUtils;
 import javafx.event.ActionEvent;
@@ -68,8 +69,8 @@ public class RegisterPage implements Initializable {
             preparedStatement.setString(6, password.getText());
             preparedStatement.executeUpdate();
             FxUtils.alertMessage(Alert.AlertType.ERROR,"Warning", "Sucessfully registered", "congratz on becoming part of our team");
-
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("login-page.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login-page.fxml"));
+            Parent root = fxmlLoader.load();
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);

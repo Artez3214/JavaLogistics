@@ -23,24 +23,24 @@ import java.util.logging.Logger;
 
 public class DestinationPage implements Initializable {
     @FXML
-    private TableView<Destination> destinationTableView;
+    private TableView<DestinationTableParams> destinationTableView;
 
     @FXML
-    private TableColumn<Destination, Integer> desId;
+    private TableColumn<DestinationTableParams, Integer> desId;
 
     @FXML
-    private TableColumn<Destination, String> pickupDestinationAddr;
+    private TableColumn<DestinationTableParams, String> pickupDestinationAddr;
 
     @FXML
-    private TableColumn<Destination, String> finalDestinationAddr;
+    private TableColumn<DestinationTableParams, String> finalDestinationAddr;
 
     @FXML
-    private TableColumn<Destination, String> pickupDestinationDt;
+    private TableColumn<DestinationTableParams, String> pickupDestinationDt;
 
     @FXML
-    private TableColumn<Destination, String> finalDestinationDt;
+    private TableColumn<DestinationTableParams, String> finalDestinationDt;
 
-    ObservableList<Destination> destinationObservableList = FXCollections.observableArrayList();
+    ObservableList<DestinationTableParams> destinationObservableList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resource){
@@ -58,24 +58,26 @@ public class DestinationPage implements Initializable {
 
             while(queryOutput.next())
             {
-                Integer queryDestinationId = queryOutput.getInt("destinationId");
-                String  queryPickUpDestinationAddress = queryOutput.getString("PickUpDestinationAddress");
-                String  queryPickUpDestinationDate = queryOutput.getString("PickUpDestinationDate");
-                String  queryFinalDestinationDate = queryOutput.getString("FinalDestinationDate");
-                String  queryFinalDestinationAddress = queryOutput.getString("FinalDestinationAddress");
+                DestinationTableParams destinationTableParams = new DestinationTableParams();
+                destinationTableParams.setColId(queryOutput.getInt("destinationId"));
+                destinationTableParams.setStartDest(queryOutput.getString("PickUpDestinationAddress"));
+                destinationTableParams.setEndDest(queryOutput.getString("PickUpDestinationDate"));
+//                String  queryFinalDestinationDate = queryOutput.getString("FinalDestinationDate");
+//                String  queryFinalDestinationAddress = queryOutput.getString("FinalDestinationAddress");
 
 
 
-                destinationObservableList.add(new Destination(queryDestinationId,queryPickUpDestinationAddress,queryPickUpDestinationDate,queryFinalDestinationDate,queryFinalDestinationAddress));
+                //destinationObservableList.add(new Destination(queryDestinationId,queryPickUpDestinationAddress,queryPickUpDestinationDate,queryFinalDestinationDate,queryFinalDestinationAddress));
+            destinationObservableList.add(destinationTableParams);
             }
 
             //  System.out.println(queryDestinationId + " " + queryPickUpDestinationAddress  + " " + queryPickUpDestinationDate  + " " + queryFinalDestinationDate + " " +  queryFinalDestinationAddress);
             System.out.println(destinationObservableList.toString());
-            desId.setCellValueFactory(new PropertyValueFactory<>("desId"));
-            pickupDestinationAddr.setCellValueFactory(new PropertyValueFactory<>("pickupDestinationAddres"));
-            finalDestinationAddr.setCellValueFactory(new PropertyValueFactory<>("finalDestinationAddres"));
-            pickupDestinationDt.setCellValueFactory(new PropertyValueFactory<>("pickupDestinationDat"));
-            finalDestinationDt.setCellValueFactory(new PropertyValueFactory<>("finalDestinationDat"));
+            desId.setCellValueFactory(new PropertyValueFactory<>("colId"));
+            pickupDestinationAddr.setCellValueFactory(new PropertyValueFactory<>("startDest"));
+            finalDestinationAddr.setCellValueFactory(new PropertyValueFactory<>("endDest"));
+//            pickupDestinationDt.setCellValueFactory(new PropertyValueFactory<>("pickupDestinationDat"));
+//            finalDestinationDt.setCellValueFactory(new PropertyValueFactory<>("finalDestinationDat"));
 
             destinationTableView.setItems(destinationObservableList);
 
