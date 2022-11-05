@@ -40,7 +40,6 @@ public class LoginPage {
         {
             Connection connection = DataBaseOperations.connectToDb();
             String sql = "SELECT count(*) FROM USER u WHERE u.username = ? AND u.password = ?";
-            // Statement statement = connection.createStatement();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, username.getText());
             preparedStatement.setString(2, password.getText());
@@ -59,6 +58,7 @@ public class LoginPage {
                     stage.show();
                 }
             }
+            DataBaseOperations.disconnectFromDb(connection,preparedStatement);
         }
         catch(Exception e)
         {

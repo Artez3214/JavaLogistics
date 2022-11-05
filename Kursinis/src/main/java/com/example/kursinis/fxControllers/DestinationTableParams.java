@@ -9,6 +9,33 @@ public class DestinationTableParams {
     private SimpleStringProperty startDest = new SimpleStringProperty();
     private SimpleStringProperty endDest = new SimpleStringProperty();
 
+    private SimpleStringProperty startDat = new SimpleStringProperty();
+    private SimpleStringProperty endDat = new SimpleStringProperty();
+
+    public String getStartDat() {
+        return startDat.get();
+    }
+
+    public SimpleStringProperty startDatProperty() {
+        return startDat;
+    }
+
+    public void setStartDat(String startDat) {
+        this.startDat.set(startDat);
+    }
+
+    public String getEndDat() {
+        return endDat.get();
+    }
+
+    public SimpleStringProperty endDatProperty() {
+        return endDat;
+    }
+
+    public void setEndDat(String endDat) {
+        this.endDat.set(endDat);
+    }
+
     public int getColId() {
         return colId.get();
     }

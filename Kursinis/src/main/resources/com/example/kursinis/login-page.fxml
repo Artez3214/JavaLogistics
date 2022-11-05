@@ -5,11 +5,11 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="loginpages" prefHeight="288.0" prefWidth="440.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.kursinis.fxControllers.LoginPage">
+<AnchorPane fx:id="loginpages" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.kursinis.fxControllers.LoginPage">
    <children>
-      <TextField fx:id="username" layoutX="146.0" layoutY="87.0" promptText="Username" />
-      <PasswordField fx:id="password" layoutX="146.0" layoutY="132.0" promptText="Password" />
-      <Button layoutX="96.0" layoutY="188.0" mnemonicParsing="false" onAction="#validate" prefHeight="18.0" prefWidth="100.0" text="Log in" />
-      <Button layoutX="250.0" layoutY="188.0" mnemonicParsing="false" onAction="#register" prefHeight="15.0" prefWidth="90.0" text="Sign up" />
+      <TextField fx:id="username" layoutX="76.0" layoutY="140.0" promptText="Username" />
+      <PasswordField fx:id="password" layoutX="76.0" layoutY="180.0" promptText="Password" />
+      <Button layoutX="26.0" layoutY="250.0" mnemonicParsing="false" onAction="#validate" prefHeight="18.0" prefWidth="100.0" text="Log in" />
+      <Button layoutX="180.0" layoutY="250.0" mnemonicParsing="false" onAction="#register" prefHeight="15.0" prefWidth="90.0" text="Sign up" />
    </children>
 </AnchorPane>
