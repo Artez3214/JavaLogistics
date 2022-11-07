@@ -86,18 +86,12 @@ public class DestinationPage implements Initializable {
 
     public void updateData()
     {
-        desId.setCellValueFactory(new PropertyValueFactory<>("colId"));
-        pickupDestinationAddr.setCellValueFactory(new PropertyValueFactory<>("startDest"));
-        finalDestinationAddr.setCellValueFactory(new PropertyValueFactory<>("endDest"));
-        pickupDestinationDt.setCellValueFactory(new PropertyValueFactory<>("startDat"));
-        finalDestinationDt.setCellValueFactory(new PropertyValueFactory<>("endDat"));
-
-        destinationTableView.setItems(destinationObservableList);
+        destinationTableView.getColumns().get(0).setVisible(false);
+        destinationTableView.getColumns().get(0).setVisible(true);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resource){
-        
         DataBaseOperations connectNow = new DataBaseOperations();
 
         Connection connection = connectNow.connectToDb();
@@ -117,10 +111,17 @@ public class DestinationPage implements Initializable {
                 destinationTableParams.setEndDat(queryOutput.getString("FinalDestinationDate"));
                 destinationTableParams.setStartDat(queryOutput.getString("FinalDestinationAddress"));
 
-            destinationObservableList.add(destinationTableParams);
+                destinationObservableList.add(destinationTableParams);
             }
 
-            updateData();
+
+            desId.setCellValueFactory(new PropertyValueFactory<>("colId"));
+            pickupDestinationAddr.setCellValueFactory(new PropertyValueFactory<>("startDest"));
+            finalDestinationAddr.setCellValueFactory(new PropertyValueFactory<>("endDest"));
+            pickupDestinationDt.setCellValueFactory(new PropertyValueFactory<>("startDat"));
+            finalDestinationDt.setCellValueFactory(new PropertyValueFactory<>("endDat"));
+
+            destinationTableView.setItems(destinationObservableList);
             filterData();
 
             DataBaseOperations.disconnectFromDb(connection,statement);
@@ -135,17 +136,17 @@ public class DestinationPage implements Initializable {
 
     public void passVariables(DestinationData destinationData){
         DestinationTableParams destinationTableParams = destinationTableView.getSelectionModel().getSelectedItem();
-
+  //TODO
      /*   destinationData.setFinalDestinationDat(destinationTableParams.getEndDat());
         TextField text = new TextField();
         text.setText(destinationTableParams.getStartDat());
         System.out.println(text);
         destinationData.setPickupdate(text);*/
-     /*   destinationData.setPickupDestinationDat(destinationTableParams.getStartDat());
+        destinationData.setPickupDestinationDat(destinationTableParams.getStartDat());
         destinationData.setFinalDestinationAddres(destinationTableParams.getEndDest());
         destinationData.setPickupDestinationAddres(destinationTableParams.getStartDest());
         destinationData.setFinalDestinationDat(destinationTableParams.getEndDat());
-        destinationData.setId(destinationTableParams.getColId());*/
+        destinationData.setId(destinationTableParams.getColId());
     }
     public void showInsertPage(boolean IsUpdating) throws IOException {
 
@@ -158,14 +159,18 @@ public class DestinationPage implements Initializable {
         }
         Scene scene = new Scene(parent);
         Stage stage = new Stage();
+        DestinationData controller = fxmlLoader.getController();
 
         stage.initOwner((Stage) destinationTableView.getScene().getWindow());
         stage.initModality(Modality.WINDOW_MODAL);
         stage.setScene(scene);
-        stage.show();
+        stage.showAndWait();
+        updateData();
+
     }
 
     public void Insert(ActionEvent actionEvent) throws IOException {
+        updateData();
         showInsertPage(false);
     }
 

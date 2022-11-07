@@ -11,6 +11,6 @@
       <TextField fx:id="pickupdate" layoutX="79.0" layoutY="185.0" />
       <TextField fx:id="finaldate" layoutX="79.0" layoutY="226.0" />
       <Button layoutX="202.0" layoutY="309.0" mnemonicParsing="false" onAction="#confirm" text="Confirm" />
-      <Button layoutX="53.0" layoutY="309.0" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
+      <Button fx:id="returnb" layoutX="53.0" layoutY="309.0" mnemonicParsing="false" onAction="#cancel" text="Return" />
    </children>
 </AnchorPane>

@@ -39,16 +39,16 @@
                </children></AnchorPane>
       </content>
     </Tab>
-      <Tab text="Orders">
+      <Tab fx:id="keyWordTextField1" text="Orders">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView layoutX="15.0" layoutY="130.0" prefHeight="330.0" prefWidth="519.0">
+                  <TableView layoutX="15.0" layoutY="130.0" prefHeight="330.0" prefWidth="641.0">
                      <columns>
                         <TableColumn prefWidth="118.0" text="Order Id" />
                         <TableColumn prefWidth="151.0" text="Route" />
-                        <TableColumn minWidth="0.0" prefWidth="113.0" text="Cargo Id" />
-                        <TableColumn minWidth="0.0" prefWidth="136.0" text="Cargo Type" />
+                        <TableColumn minWidth="0.0" prefWidth="188.0" text="Cargo Id" />
+                        <TableColumn prefWidth="183.0" text="Destination Id" />
                      </columns>
                   </TableView>
                   <Pane layoutY="51.0" prefHeight="8.0" prefWidth="900.0" style="-fx-background-color: black;" />
@@ -57,6 +57,117 @@
                         <Font size="20.0" />
                      </font>
                   </Text>
+                  <Button layoutX="15.0" layoutY="86.0" mnemonicParsing="false" text="Create" />
+                  <Button layoutX="92.0" layoutY="86.0" mnemonicParsing="false" text="Delete" />
+                  <Button layoutX="174.0" layoutY="86.0" mnemonicParsing="false" text="Update" />
+                  <TextField fx:id="keyWordTextField" layoutX="275.0" layoutY="86.0" prefHeight="25.0" prefWidth="380.0" promptText="Enter searching order" />
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+      <Tab text="Cargo">
+         <content>
+            <AnchorPane fx:id="destinationpage1" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TableView fx:id="destinationTableView1" layoutX="25.0" layoutY="125.0" prefHeight="335.0" prefWidth="326.0">
+                     <columns>
+                        <TableColumn fx:id="desId1" prefWidth="148.0" text="cargoId" />
+                        <TableColumn fx:id="pickupDestinationAddr1" prefWidth="177.0" text="type" />
+                     </columns>
+                  </TableView>
+                  <Pane layoutY="51.0" prefHeight="8.0" prefWidth="900.0" style="-fx-background-color: black;" />
+                  <Text layoutX="419.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cargo">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <Button layoutX="25.0" layoutY="83.0" mnemonicParsing="false" onAction="#Insert" text="Create" />
+                  <Button layoutX="101.0" layoutY="83.0" mnemonicParsing="false" onAction="#Delete" text="Delete" />
+                  <Button layoutX="178.0" layoutY="83.0" mnemonicParsing="false" onAction="#Update" text="Update" />
+                  <TextField fx:id="keyWordTextField2" layoutX="265.0" layoutY="83.0" prefHeight="25.0" prefWidth="160.0" promptText="Enter cargo type" />
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+      <Tab text="Vehicle">
+         <content>
+            <AnchorPane fx:id="destinationpage11" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Pane layoutY="51.0" prefHeight="8.0" prefWidth="900.0" style="-fx-background-color: black;" />
+                  <Text layoutX="395.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Vehicle">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <Button layoutX="25.0" layoutY="83.0" mnemonicParsing="false" onAction="#Insert" text="Create" />
+                  <Button layoutX="101.0" layoutY="83.0" mnemonicParsing="false" onAction="#Delete" text="Delete" />
+                  <Button layoutX="178.0" layoutY="83.0" mnemonicParsing="false" onAction="#Update" text="Update" />
+                  <TextField layoutX="27.0" layoutY="135.0" prefHeight="25.0" prefWidth="260.0" promptText="vehicleId" />
+                  <TextField layoutX="29.0" layoutY="181.0" prefHeight="25.0" prefWidth="260.0" promptText="type" />
+                  <TextField layoutX="29.0" layoutY="231.0" prefHeight="25.0" prefWidth="260.0" promptText="carNumber" />
+                  <TextField layoutX="29.0" layoutY="279.0" prefHeight="25.0" prefWidth="260.0" promptText="wheelNumber" />
+                  <TextField layoutX="29.0" layoutY="331.0" prefHeight="25.0" prefWidth="260.0" promptText="locationDegreeX" />
+                  <TextField layoutX="29.0" layoutY="383.0" prefHeight="25.0" prefWidth="260.0" promptText="locationDegreeY" />
+                  <TextField layoutX="29.0" layoutY="433.0" prefHeight="25.0" prefWidth="260.0" promptText="name" />
+                  <TextField layoutX="432.0" layoutY="135.0" prefHeight="25.0" prefWidth="260.0" promptText="company" />
+                  <TextField layoutX="432.0" layoutY="181.0" prefHeight="25.0" prefWidth="260.0" promptText="ensurance" />
+                  <TextField layoutX="432.0" layoutY="231.0" prefHeight="25.0" prefWidth="260.0" promptText="dateCreated" />
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+      <Tab text="Users">
+         <content>
+            <AnchorPane fx:id="destinationpage111" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TableView fx:id="destinationTableView111" layoutX="25.0" layoutY="130.0" prefHeight="330.0" prefWidth="843.0">
+                     <columns>
+                        <TableColumn fx:id="desId111" prefWidth="148.0" text="Id" />
+                        <TableColumn fx:id="pickupDestinationAddr111" prefWidth="170.0" text="Pickup Destination Address" />
+                        <TableColumn fx:id="finalDestinationAddr111" prefWidth="171.0" text="Final Destination Address" />
+                        <TableColumn fx:id="pickupDestinationDt111" minWidth="0.0" prefWidth="170.0" text="pickup destination date" />
+                        <TableColumn fx:id="finalDestinationDt111" prefWidth="182.0" text="final destination date" />
+                     </columns>
+                  </TableView>
+                  <Pane layoutY="51.0" prefHeight="8.0" prefWidth="900.0" style="-fx-background-color: black;" />
+                  <Text layoutX="372.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Users">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <Button layoutX="25.0" layoutY="83.0" mnemonicParsing="false" onAction="#Insert" text="Create" />
+                  <Button layoutX="101.0" layoutY="83.0" mnemonicParsing="false" onAction="#Delete" text="Delete" />
+                  <Button layoutX="178.0" layoutY="83.0" mnemonicParsing="false" onAction="#Update" text="Update" />
+                  <TextField fx:id="keyWordTextField3" layoutX="632.0" layoutY="83.0" prefHeight="25.0" prefWidth="243.0" promptText="Enter pickup destination address" />
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+      <Tab text="Forum">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Pane layoutY="51.0" prefHeight="8.0" prefWidth="900.0" style="-fx-background-color: black;" />
+                  <Text layoutX="422.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Forum">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+      <Tab text="Settings">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Pane layoutY="51.0" prefHeight="8.0" prefWidth="900.0" style="-fx-background-color: black;" />
+                  <Text layoutX="372.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Settings">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <Button layoutX="43.0" layoutY="91.0" mnemonicParsing="false" text="Logout" />
                </children>
             </AnchorPane>
          </content>
