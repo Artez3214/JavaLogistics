@@ -86,12 +86,7 @@ public class DestinationPage implements Initializable {
 
     public void updateData()
     {
-        destinationTableView.getColumns().get(0).setVisible(false);
-        destinationTableView.getColumns().get(0).setVisible(true);
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resource){
+        destinationObservableList.clear();
         DataBaseOperations connectNow = new DataBaseOperations();
 
         Connection connection = connectNow.connectToDb();
@@ -134,33 +129,25 @@ public class DestinationPage implements Initializable {
 
     }
 
-    public void passVariables(DestinationData destinationData){
-        DestinationTableParams destinationTableParams = destinationTableView.getSelectionModel().getSelectedItem();
-  //TODO
-     /*   destinationData.setFinalDestinationDat(destinationTableParams.getEndDat());
-        TextField text = new TextField();
-        text.setText(destinationTableParams.getStartDat());
-        System.out.println(text);
-        destinationData.setPickupdate(text);*/
-        destinationData.setPickupDestinationDat(destinationTableParams.getStartDat());
-        destinationData.setFinalDestinationAddres(destinationTableParams.getEndDest());
-        destinationData.setPickupDestinationAddres(destinationTableParams.getStartDest());
-        destinationData.setFinalDestinationDat(destinationTableParams.getEndDat());
-        destinationData.setId(destinationTableParams.getColId());
+    @Override
+    public void initialize(URL url, ResourceBundle resource){
+      updateData();
     }
-    public void showInsertPage(boolean IsUpdating) throws IOException {
 
+    public void showInsertPage(boolean IsUpdating) throws IOException {
+        DestinationTableParams destinationTableParams = destinationTableView.getSelectionModel().getSelectedItem();
+        DestinationPage destinationpage = this;
         FXMLLoader fxmlLoader = new FXMLLoader(LoginPage.class.getResource("/DestinationData.fxml"));
         Parent parent = fxmlLoader.load();
         DestinationData destinationData = fxmlLoader.getController();
-        if(IsUpdating)
-        {
-            passVariables(destinationData);
-        }
         Scene scene = new Scene(parent);
         Stage stage = new Stage();
         DestinationData controller = fxmlLoader.getController();
-
+        if(IsUpdating)
+        {
+            controller.setData(destinationTableParams);
+        }
+        controller.setDataClass(destinationpage);
         stage.initOwner((Stage) destinationTableView.getScene().getWindow());
         stage.initModality(Modality.WINDOW_MODAL);
         stage.setScene(scene);
@@ -169,13 +156,13 @@ public class DestinationPage implements Initializable {
 
     }
 
-    public void Insert(ActionEvent actionEvent) throws IOException {
+    public void Inserted(ActionEvent actionEvent) throws IOException {
         updateData();
         showInsertPage(false);
     }
 
 
-    public void Delete(ActionEvent actionEvent) {
+    public void Deleted(ActionEvent actionEvent) {
 
         DestinationTableParams destinationTableParams = destinationTableView.getSelectionModel().getSelectedItem();
         try{
@@ -194,12 +181,11 @@ public class DestinationPage implements Initializable {
             Logger.getLogger(DestinationPage.class.getName()).log(Level.SEVERE, null,e);
             e.printStackTrace();
         }
-
-    }
-
-    public void Update(ActionEvent actionEvent) throws IOException {
-       showInsertPage(true);
     }
 
 
+
+    public void Updating(ActionEvent actionEvent) throws IOException {
+        showInsertPage(true);
+    }
 }

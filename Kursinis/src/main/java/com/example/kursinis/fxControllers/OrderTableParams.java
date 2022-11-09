@@ -8,6 +8,19 @@ public class OrderTableParams {
     private SimpleStringProperty rout = new SimpleStringProperty();
     private SimpleIntegerProperty cargoId = new SimpleIntegerProperty();
     private SimpleIntegerProperty desId = new SimpleIntegerProperty();
+    private SimpleIntegerProperty driverId = new SimpleIntegerProperty();
+
+    public int getDriverId() {
+        return driverId.get();
+    }
+
+    public SimpleIntegerProperty driverIdProperty() {
+        return driverId;
+    }
+
+    public void setDriverId(int driverId) {
+        this.driverId.set(driverId);
+    }
 
     public int getOrdId() {
         return ordId.get();

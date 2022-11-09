@@ -4,6 +4,7 @@ import com.example.kursinis.HelloApplication;
 import com.example.kursinis.utils.DataBaseOperations;
 import com.example.kursinis.utils.FxUtils;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,6 +35,8 @@ public class DestinationData {
     private TextField pickupdate;
     @FXML
     private TextField finaldate;
+
+    private DestinationPage destinationPage;
 
     Button returnb;
     private int id;
@@ -122,7 +125,7 @@ public class DestinationData {
 
         String Query = "UPDATE destination SET PickupDestinationAddress = ?, PickUpDestinationDate = ?, FinalDestinationDate = ?, FinalDestinationAddress = ? WHERE id = ? ";
         String QueryIsInsert = "SELECT count(*) FROM destination d WHERE d.id = ?";
-        String QueryInsert = "INSERT INTO `destination` (`id`, `PickupDestinationAddress`, `PickUpDestinationDate`, `FinalDestinationDate`, `FinalDestinationAddress`, `orderId`) VALUES (NULL, ?, ?, ?, ?, 0)";
+        String QueryInsert = "INSERT INTO `destination` (`id`, `PickupDestinationAddress`, `PickUpDestinationDate`, `FinalDestinationDate`, `FinalDestinationAddress`) VALUES (NULL, ?, ?, ?, ?)";
 
         try{
             PreparedStatement preparedStatement1 = connection.prepareStatement(QueryIsInsert);
@@ -160,19 +163,29 @@ public class DestinationData {
             Logger.getLogger(DestinationPage.class.getName()).log(Level.SEVERE, null,e);
             e.printStackTrace();
         }
+        destinationPage.updateData();
     }
 
 
     public void cancel(ActionEvent actionEvent) throws IOException {
 
-       /* Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("main-page.fxml"));
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("main-page.fxml"));
-        DestinationPage controller = loader.getController();
-        controller.updateData();*/
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("main-page.fxml"));
+
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
 
         stage.close();
 
+    }
+
+    public void setData(DestinationTableParams destinationTableParams) {
+        pickupaddress.setText(destinationTableParams.getStartDest());
+        finaldesaddress.setText(destinationTableParams.getEndDest());
+        pickupdate.setText(destinationTableParams.getStartDat());
+        finaldate.setText(destinationTableParams.getEndDat());
+    }
+
+
+    public void setDataClass(DestinationPage destinationpage) {
+        destinationPage = destinationpage;
     }
 }

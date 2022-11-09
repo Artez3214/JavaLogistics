@@ -32,9 +32,9 @@
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <Button layoutX="25.0" layoutY="83.0" mnemonicParsing="false" onAction="#Insert" text="Create" />
-                  <Button layoutX="101.0" layoutY="83.0" mnemonicParsing="false" onAction="#Delete" text="Delete" />
-                  <Button layoutX="178.0" layoutY="83.0" mnemonicParsing="false" onAction="#Update" text="Update" />
+                  <Button layoutX="25.0" layoutY="83.0" mnemonicParsing="false" onAction="#Inserted" text="Create" />
+                  <Button layoutX="101.0" layoutY="83.0" mnemonicParsing="false" onAction="#Deleted" text="Delete" />
+                  <Button layoutX="178.0" layoutY="83.0" mnemonicParsing="false" onAction="#Updating" text="Update" />
                   <TextField fx:id="keyWordTextField" layoutX="632.0" layoutY="83.0" prefHeight="25.0" prefWidth="243.0" promptText="Enter pickup destination address" />
                </children></AnchorPane>
       </content>
@@ -43,12 +43,13 @@
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView layoutX="15.0" layoutY="130.0" prefHeight="330.0" prefWidth="641.0">
+                  <TableView fx:id="orderTableView" layoutX="15.0" layoutY="130.0" prefHeight="330.0" prefWidth="641.0">
                      <columns>
-                        <TableColumn prefWidth="118.0" text="Order Id" />
-                        <TableColumn prefWidth="151.0" text="Route" />
-                        <TableColumn minWidth="0.0" prefWidth="188.0" text="Cargo Id" />
-                        <TableColumn prefWidth="183.0" text="Destination Id" />
+                        <TableColumn fx:id="orderId" prefWidth="118.0" text="Order Id" />
+                        <TableColumn fx:id="route" prefWidth="151.0" text="Route" />
+                        <TableColumn fx:id="cargoId" minWidth="0.0" prefWidth="122.0" text="Cargo Id" />
+                        <TableColumn fx:id="destinationId" prefWidth="116.0" text="Destination Id" />
+                        <TableColumn fx:id="driverId" prefWidth="133.0" text="Driver Id" />
                      </columns>
                   </TableView>
                   <Pane layoutY="51.0" prefHeight="8.0" prefWidth="900.0" style="-fx-background-color: black;" />
@@ -60,7 +61,7 @@
                   <Button layoutX="15.0" layoutY="86.0" mnemonicParsing="false" text="Create" />
                   <Button layoutX="92.0" layoutY="86.0" mnemonicParsing="false" text="Delete" />
                   <Button layoutX="174.0" layoutY="86.0" mnemonicParsing="false" text="Update" />
-                  <TextField fx:id="keyWordTextField" layoutX="275.0" layoutY="86.0" prefHeight="25.0" prefWidth="380.0" promptText="Enter searching order" />
+                  <TextField fx:id="keyWordTextField2" layoutX="275.0" layoutY="86.0" prefHeight="25.0" prefWidth="380.0" promptText="Enter searching order" />
                </children>
             </AnchorPane>
          </content>
@@ -81,10 +82,10 @@
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <Button layoutX="25.0" layoutY="83.0" mnemonicParsing="false" onAction="#Insert" text="Create" />
-                  <Button layoutX="101.0" layoutY="83.0" mnemonicParsing="false" onAction="#Delete" text="Delete" />
-                  <Button layoutX="178.0" layoutY="83.0" mnemonicParsing="false" onAction="#Update" text="Update" />
-                  <TextField fx:id="keyWordTextField2" layoutX="265.0" layoutY="83.0" prefHeight="25.0" prefWidth="160.0" promptText="Enter cargo type" />
+                  <Button layoutX="25.0" layoutY="83.0" mnemonicParsing="false" onAction="#Inserted" text="Create" />
+                  <Button layoutX="101.0" layoutY="83.0" mnemonicParsing="false" onAction="#Deleted" text="Delete" />
+                  <Button layoutX="178.0" layoutY="83.0" mnemonicParsing="false" onAction="#Updating" text="Update" />
+                  <TextField fx:id="keyWordTextField3" layoutX="265.0" layoutY="83.0" prefHeight="25.0" prefWidth="160.0" promptText="Enter cargo type" />
                </children>
             </AnchorPane>
          </content>
@@ -99,9 +100,9 @@
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <Button layoutX="25.0" layoutY="83.0" mnemonicParsing="false" onAction="#Insert" text="Create" />
-                  <Button layoutX="101.0" layoutY="83.0" mnemonicParsing="false" onAction="#Delete" text="Delete" />
-                  <Button layoutX="178.0" layoutY="83.0" mnemonicParsing="false" onAction="#Update" text="Update" />
+                  <Button layoutX="25.0" layoutY="83.0" mnemonicParsing="false" onAction="#Inserted" text="Create" />
+                  <Button layoutX="101.0" layoutY="83.0" mnemonicParsing="false" onAction="#Deleted" text="Delete" />
+                  <Button layoutX="178.0" layoutY="83.0" mnemonicParsing="false" onAction="#Updating" text="Update" />
                   <TextField layoutX="27.0" layoutY="135.0" prefHeight="25.0" prefWidth="260.0" promptText="vehicleId" />
                   <TextField layoutX="29.0" layoutY="181.0" prefHeight="25.0" prefWidth="260.0" promptText="type" />
                   <TextField layoutX="29.0" layoutY="231.0" prefHeight="25.0" prefWidth="260.0" promptText="carNumber" />
@@ -135,10 +136,10 @@
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <Button layoutX="25.0" layoutY="83.0" mnemonicParsing="false" onAction="#Insert" text="Create" />
-                  <Button layoutX="101.0" layoutY="83.0" mnemonicParsing="false" onAction="#Delete" text="Delete" />
-                  <Button layoutX="178.0" layoutY="83.0" mnemonicParsing="false" onAction="#Update" text="Update" />
-                  <TextField fx:id="keyWordTextField3" layoutX="632.0" layoutY="83.0" prefHeight="25.0" prefWidth="243.0" promptText="Enter pickup destination address" />
+                  <Button layoutX="25.0" layoutY="83.0" mnemonicParsing="false" onAction="#Inserted" text="Create" />
+                  <Button layoutX="101.0" layoutY="83.0" mnemonicParsing="false" onAction="#Deleted" text="Delete" />
+                  <Button layoutX="178.0" layoutY="83.0" mnemonicParsing="false" onAction="#Updating" text="Update" />
+                  <TextField fx:id="keyWordTextField4" layoutX="632.0" layoutY="83.0" prefHeight="25.0" prefWidth="243.0" promptText="Enter pickup destination address" />
                </children>
             </AnchorPane>
          </content>
