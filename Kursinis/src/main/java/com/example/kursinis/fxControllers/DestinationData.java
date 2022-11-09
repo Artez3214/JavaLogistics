@@ -1,27 +1,18 @@
 package com.example.kursinis.fxControllers;
 
-import com.example.kursinis.HelloApplication;
 import com.example.kursinis.utils.DataBaseOperations;
-import com.example.kursinis.utils.FxUtils;
-import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 
 import java.io.IOException;
-import java.net.URL;
 import java.sql.*;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,13 +27,15 @@ public class DestinationData {
     @FXML
     private TextField finaldate;
 
-    private DestinationPage destinationPage;
+    private MainPage destinationPage;
 
     Button returnb;
     private int id;
     private String pickupDestinationAddres, finalDestinationAddres;
 
     private String pickupDestinationDat, finalDestinationDat;
+
+    private boolean IsUpdate;
 
 
     public TextField getPickupaddress() {
@@ -124,15 +117,12 @@ public class DestinationData {
 
 
         String Query = "UPDATE destination SET PickupDestinationAddress = ?, PickUpDestinationDate = ?, FinalDestinationDate = ?, FinalDestinationAddress = ? WHERE id = ? ";
-        String QueryIsInsert = "SELECT count(*) FROM destination d WHERE d.id = ?";
         String QueryInsert = "INSERT INTO `destination` (`id`, `PickupDestinationAddress`, `PickUpDestinationDate`, `FinalDestinationDate`, `FinalDestinationAddress`) VALUES (NULL, ?, ?, ?, ?)";
 
         try{
-            PreparedStatement preparedStatement1 = connection.prepareStatement(QueryIsInsert);
-            preparedStatement1.setString(1, Integer.toString(id));
-            ResultSet rs = preparedStatement1.executeQuery();
-            while(rs.next()) {
-                if (rs.getInt(1) == 0) {
+
+
+                if (!IsUpdate) {
                     PreparedStatement preparedStatement2 = connection.prepareStatement(QueryInsert);
 
                     preparedStatement2.setString(1, pickupaddress.getText());
@@ -140,30 +130,24 @@ public class DestinationData {
                     preparedStatement2.setString(3, finaldate.getText());
                     preparedStatement2.setString(4, finaldesaddress.getText());
                     preparedStatement2.executeUpdate();
-                  ///  DataBaseOperations.disconnectFromDb(connection,preparedStatement2);
                 }
                 else{
                     PreparedStatement preparedStatement = connection.prepareStatement(Query);
 
-                    preparedStatement.setString(5, Integer.toString(id));
                     preparedStatement.setString(1, pickupaddress.getText());
                     preparedStatement.setString(2, pickupdate.getText());
                     preparedStatement.setString(3, finaldate.getText());
                     preparedStatement.setString(4, finaldesaddress.getText());
+                    preparedStatement.setInt(5, id);
                     preparedStatement.executeUpdate();
-                  ///  DataBaseOperations.disconnectFromDb(connection,preparedStatement);
                 }
-            }
-         ///   DataBaseOperations.disconnectFromDb(connection,preparedStatement1);
-
-
         }
         catch (SQLException e)
         {
-            Logger.getLogger(DestinationPage.class.getName()).log(Level.SEVERE, null,e);
+            Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null,e);
             e.printStackTrace();
         }
-        destinationPage.updateData();
+        destinationPage.updateDestinationData();
     }
 
 
@@ -182,10 +166,13 @@ public class DestinationData {
         finaldesaddress.setText(destinationTableParams.getEndDest());
         pickupdate.setText(destinationTableParams.getStartDat());
         finaldate.setText(destinationTableParams.getEndDat());
+        setId(destinationTableParams.getColId());
     }
 
 
-    public void setDataClass(DestinationPage destinationpage) {
+    public void setDataClass(MainPage destinationpage,boolean isUpdate) {
+
         destinationPage = destinationpage;
+        IsUpdate = isUpdate;
     }
 }
