@@ -58,11 +58,10 @@
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <Button layoutX="15.0" layoutY="86.0" mnemonicParsing="false" text="Create" />
-                  <Button layoutX="92.0" layoutY="86.0" mnemonicParsing="false" text="Delete" />
-                  <Button layoutX="174.0" layoutY="86.0" mnemonicParsing="false" text="Update" />
+                  <Button layoutX="15.0" layoutY="86.0" mnemonicParsing="false" onAction="#confirmOrder" text="Create" />
+                  <Button layoutX="92.0" layoutY="86.0" mnemonicParsing="false" onAction="#deleteOrder" text="Delete" />
+                  <Button layoutX="174.0" layoutY="86.0" mnemonicParsing="false" onAction="#updateOrderButton" text="Update" />
                   <TextField fx:id="keyWordTextField2" layoutX="275.0" layoutY="86.0" prefHeight="25.0" prefWidth="380.0" promptText="Enter searching order" />
-                  <Button layoutX="720.0" layoutY="99.0" mnemonicParsing="false" onAction="#click" text="Button" />
                </children>
             </AnchorPane>
          </content>
@@ -71,10 +70,11 @@
          <content>
             <AnchorPane fx:id="destinationpage1" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="destinationTableView1" layoutX="25.0" layoutY="125.0" prefHeight="335.0" prefWidth="326.0">
+                  <TableView fx:id="cargoTableView" layoutX="25.0" layoutY="125.0" prefHeight="335.0" prefWidth="504.0">
                      <columns>
-                        <TableColumn fx:id="desId1" prefWidth="148.0" text="cargoId" />
-                        <TableColumn fx:id="pickupDestinationAddr1" prefWidth="177.0" text="type" />
+                        <TableColumn fx:id="cargoIdd" prefWidth="148.0" text="cargoId" />
+                        <TableColumn fx:id="type" prefWidth="177.0" text="type" />
+                        <TableColumn fx:id="orderIdd" prefWidth="178.0" text="orderId" />
                      </columns>
                   </TableView>
                   <Pane layoutY="51.0" prefHeight="8.0" prefWidth="900.0" style="-fx-background-color: black;" />
@@ -83,37 +83,10 @@
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <Button layoutX="25.0" layoutY="83.0" mnemonicParsing="false" onAction="#Inserted" text="Create" />
-                  <Button layoutX="101.0" layoutY="83.0" mnemonicParsing="false" onAction="#Deleted" text="Delete" />
-                  <Button layoutX="178.0" layoutY="83.0" mnemonicParsing="false" onAction="#Updating" text="Update" />
+                  <Button layoutX="25.0" layoutY="83.0" mnemonicParsing="false" onAction="#cargoInsert" text="Create" />
+                  <Button layoutX="101.0" layoutY="83.0" mnemonicParsing="false" onAction="#cargoDelete" text="Delete" />
+                  <Button layoutX="178.0" layoutY="83.0" mnemonicParsing="false" onAction="#cargoUpdate" text="Update" />
                   <TextField fx:id="keyWordTextField3" layoutX="265.0" layoutY="83.0" prefHeight="25.0" prefWidth="160.0" promptText="Enter cargo type" />
-               </children>
-            </AnchorPane>
-         </content>
-      </Tab>
-      <Tab text="Vehicle">
-         <content>
-            <AnchorPane fx:id="destinationpage11" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <Pane layoutY="51.0" prefHeight="8.0" prefWidth="900.0" style="-fx-background-color: black;" />
-                  <Text layoutX="395.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Vehicle">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-                  <Button layoutX="25.0" layoutY="83.0" mnemonicParsing="false" onAction="#Inserted" text="Create" />
-                  <Button layoutX="101.0" layoutY="83.0" mnemonicParsing="false" onAction="#Deleted" text="Delete" />
-                  <Button layoutX="178.0" layoutY="83.0" mnemonicParsing="false" onAction="#Updating" text="Update" />
-                  <TextField layoutX="27.0" layoutY="135.0" prefHeight="25.0" prefWidth="260.0" promptText="vehicleId" />
-                  <TextField layoutX="29.0" layoutY="181.0" prefHeight="25.0" prefWidth="260.0" promptText="type" />
-                  <TextField layoutX="29.0" layoutY="231.0" prefHeight="25.0" prefWidth="260.0" promptText="carNumber" />
-                  <TextField layoutX="29.0" layoutY="279.0" prefHeight="25.0" prefWidth="260.0" promptText="wheelNumber" />
-                  <TextField layoutX="29.0" layoutY="331.0" prefHeight="25.0" prefWidth="260.0" promptText="locationDegreeX" />
-                  <TextField layoutX="29.0" layoutY="383.0" prefHeight="25.0" prefWidth="260.0" promptText="locationDegreeY" />
-                  <TextField layoutX="29.0" layoutY="433.0" prefHeight="25.0" prefWidth="260.0" promptText="name" />
-                  <TextField layoutX="432.0" layoutY="135.0" prefHeight="25.0" prefWidth="260.0" promptText="company" />
-                  <TextField layoutX="432.0" layoutY="181.0" prefHeight="25.0" prefWidth="260.0" promptText="ensurance" />
-                  <TextField layoutX="432.0" layoutY="231.0" prefHeight="25.0" prefWidth="260.0" promptText="dateCreated" />
                </children>
             </AnchorPane>
          </content>
@@ -141,6 +114,7 @@
                   <Button layoutX="101.0" layoutY="83.0" mnemonicParsing="false" onAction="#Deleted" text="Delete" />
                   <Button layoutX="178.0" layoutY="83.0" mnemonicParsing="false" onAction="#Updating" text="Update" />
                   <TextField fx:id="keyWordTextField4" layoutX="632.0" layoutY="83.0" prefHeight="25.0" prefWidth="243.0" promptText="Enter pickup destination address" />
+                  <Button layoutX="605.0" layoutY="472.0" mnemonicParsing="false" text="Vehicle Information" />
                </children>
             </AnchorPane>
          </content>

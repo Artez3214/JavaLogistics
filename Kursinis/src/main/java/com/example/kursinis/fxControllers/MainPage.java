@@ -1,5 +1,6 @@
 package com.example.kursinis.fxControllers;
 
+import com.example.kursinis.model.Cargo;
 import com.example.kursinis.utils.DataBaseOperations;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,6 +32,8 @@ public class MainPage implements Initializable {
 
     @FXML
     private TextField keyWordTextField2;
+    @FXML
+    private TextField keyWordTextField3;
 
     @FXML
     private TableView<DestinationTableParams> destinationTableView;
@@ -69,7 +72,17 @@ public class MainPage implements Initializable {
     @FXML
     private TableColumn<OrderTableParams, Integer> driverId;
     ObservableList<OrderTableParams> orderObservableList = FXCollections.observableArrayList();
+    @FXML
+    private TableView<CargoTableParams> cargoTableView;
 
+    @FXML
+    private TableColumn<CargoTableParams, Integer> cargoIdd;
+    @FXML
+    private TableColumn<CargoTableParams, String> type;
+    @FXML
+    private TableColumn<CargoTableParams, Integer> orderIdd;
+
+    ObservableList<CargoTableParams> cargoObservableList = FXCollections.observableArrayList();
     public void filterOrder(){
 
         FilteredList<OrderTableParams> filteredData = new FilteredList<>(orderObservableList, b -> true);
@@ -106,15 +119,16 @@ public class MainPage implements Initializable {
         orderTableView.setItems(sortedData);
     }
     public void updateOrder(){
+        orderObservableList.clear();
         DataBaseOperations connectNow = new DataBaseOperations();
 
         Connection connection = connectNow.connectToDb();
 
-        String destinationViewQuery = "SELECT * FROM `order` WHERE 1";
+        String orderViewQuery = "SELECT * FROM `order` WHERE 1";
 
         try{
             Statement statement = connection.createStatement();
-            ResultSet queryOutput = statement.executeQuery(destinationViewQuery);
+            ResultSet queryOutput = statement.executeQuery(orderViewQuery);
 
             while(queryOutput.next())
             {
@@ -226,11 +240,80 @@ public class MainPage implements Initializable {
         }
 
     }
+    public void updateCargo(){
+        cargoObservableList.clear();
+        DataBaseOperations connectNow = new DataBaseOperations();
+
+        Connection connection = connectNow.connectToDb();
+
+        String cargoViewQuery = "SELECT cargoId,type,orderId FROM cargo";
+
+        try{
+            Statement statement = connection.createStatement();
+            ResultSet queryOutput = statement.executeQuery(cargoViewQuery);
+
+            while(queryOutput.next())
+            {
+                CargoTableParams cargoTableParams = new CargoTableParams();
+                cargoTableParams.setCargId(queryOutput.getInt("cargoId"));
+                cargoTableParams.setType(queryOutput.getString("type"));
+                cargoTableParams.setOrderIdd(queryOutput.getInt("orderId"));
+
+                cargoObservableList.add(cargoTableParams);
+            }
+
+
+            cargoIdd.setCellValueFactory(new PropertyValueFactory<>("cargId"));
+            type.setCellValueFactory(new PropertyValueFactory<>("type"));
+            orderIdd.setCellValueFactory(new PropertyValueFactory<>("orderIdd"));
+
+            cargoTableView.setItems(cargoObservableList);
+            filterCargoData();
+
+            DataBaseOperations.disconnectFromDb(connection,statement);
+
+        }
+        catch (SQLException e)
+        {
+            Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null,e);
+            e.printStackTrace();
+        }
+    }
+
+    private void filterCargoData() {
+        FilteredList<CargoTableParams> filteredData = new FilteredList<>(cargoObservableList, b -> true);
+
+        keyWordTextField3.textProperty().addListener((observable, oldValue, newValue) ->{
+            filteredData.setPredicate(cargoSearchModel -> {
+                if(newValue.isEmpty() || newValue.isBlank() || newValue ==null){
+                    return true;
+                }
+                String searchKeyword3 = newValue.toLowerCase();
+
+                if(Integer.toString(cargoSearchModel.getCargId()).toLowerCase().indexOf(searchKeyword3) > -1){
+                    return true;
+                } else if(cargoSearchModel.getType().toString().indexOf(searchKeyword3) > -1){
+                    return true;
+                }
+                else if(Integer.toString(cargoSearchModel.getOrderIdd()).toLowerCase().indexOf(searchKeyword3) > -1){
+                    return true;
+                }
+                return false;
+            });
+        });
+
+        SortedList<CargoTableParams> sortedData = new SortedList<>(filteredData);
+
+        sortedData.comparatorProperty().bind(cargoTableView.comparatorProperty());
+
+        cargoTableView.setItems(sortedData);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resource){
       updateDestinationData();
       updateOrder();
+      updateCargo();
     }
 
     public void showDestinationInsertPage(boolean IsUpdating) throws IOException {
@@ -255,10 +338,49 @@ public class MainPage implements Initializable {
 
     }
 
+    private void showOrderPage(boolean IsUpdating) throws IOException {
+        OrderTableParams orderTableParams = orderTableView.getSelectionModel().getSelectedItem();
+        MainPage orderpage = this;
+        FXMLLoader fxmlLoader = new FXMLLoader(LoginPage.class.getResource("/OrderData.fxml"));
+        Parent parent = fxmlLoader.load();
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        OrderData controller = fxmlLoader.getController();
+        System.out.println(IsUpdating);
+        if(IsUpdating)
+        {
+            controller.setOrderData(orderTableParams);
+        }
+        controller.setDataClass(orderpage,IsUpdating);
+        stage.initOwner((Stage) orderTableView.getScene().getWindow());
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
+        updateOrder();
+    }
+    private void showCargoPage(boolean IsUpdating) throws IOException {
+       CargoTableParams cargoTableParams = cargoTableView.getSelectionModel().getSelectedItem();
+        MainPage cargopage = this;
+        FXMLLoader fxmlLoader = new FXMLLoader(LoginPage.class.getResource("/CargoData.fxml"));
+        Parent parent = fxmlLoader.load();
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        CargoData controller = fxmlLoader.getController();
+        System.out.println(IsUpdating);
+        if(IsUpdating)
+        {
+            controller.setCargoData(cargoTableParams);
+        }
+        controller.setDataClass(cargopage,IsUpdating);
+        stage.initOwner((Stage) cargoTableView.getScene().getWindow());
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
+        updateCargo();
+    }
     public void Inserted(ActionEvent actionEvent) throws IOException {
         showDestinationInsertPage(false);
     }
-
 
     public void Deleted(ActionEvent actionEvent) {
 
@@ -280,12 +402,64 @@ public class MainPage implements Initializable {
         }
     }
 
-
-
     public void Updating(ActionEvent actionEvent) throws IOException {
         showDestinationInsertPage(true);
     }
 
-    public void click(ActionEvent actionEvent) {
+
+    public void confirmOrder(ActionEvent actionEvent) throws IOException {
+        showOrderPage(false);
+    }
+
+
+    public void deleteOrder(ActionEvent actionEvent) {
+
+        OrderTableParams orderTableParams = orderTableView.getSelectionModel().getSelectedItem();
+        try{
+            Connection connection = DataBaseOperations.connectToDb();
+            String orderDeleteQuery = "DELETE FROM `order` WHERE orderId = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(orderDeleteQuery);
+            int Id  = orderTableParams.getOrdId();
+            preparedStatement.setInt(1, Id);
+            preparedStatement.executeUpdate();
+            destinationObservableList.remove(orderTableParams);
+            updateOrder();
+        }
+        catch (SQLException e)
+        {
+            Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null,e);
+            e.printStackTrace();
+        }
+    }
+
+    public void updateOrderButton(ActionEvent actionEvent) throws IOException {
+        showOrderPage(true);
+    }
+
+    public void cargoInsert(ActionEvent actionEvent) throws IOException {
+        showCargoPage(false);
+    }
+
+    public void cargoDelete(ActionEvent actionEvent) {
+        CargoTableParams cargoTableParams = cargoTableView.getSelectionModel().getSelectedItem();
+        try{
+            Connection connection = DataBaseOperations.connectToDb();
+            String cargoDeleteQuery = "DELETE FROM cargo WHERE cargoId = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(cargoDeleteQuery);
+            int Id  = cargoTableParams.getCargId();
+            preparedStatement.setString(1, Integer.toString(Id));
+            preparedStatement.executeUpdate();
+            cargoObservableList.remove(cargoTableParams);
+
+        }
+        catch (SQLException e)
+        {
+            Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null,e);
+            e.printStackTrace();
+        }
+    }
+
+    public void cargoUpdate(ActionEvent actionEvent) throws IOException {
+        showCargoPage(true);
     }
 }

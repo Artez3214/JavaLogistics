@@ -29,6 +29,7 @@ public class DestinationData {
 
     private MainPage destinationPage;
 
+    @FXML
     Button returnb;
     private int id;
     private String pickupDestinationAddres, finalDestinationAddres;
@@ -175,4 +176,7 @@ public class DestinationData {
         destinationPage = destinationpage;
         IsUpdate = isUpdate;
     }
+
+
+
 }

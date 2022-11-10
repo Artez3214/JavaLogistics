@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class DestinationTableParams {
 
+
     private SimpleIntegerProperty colId = new SimpleIntegerProperty();
     private SimpleStringProperty startDest = new SimpleStringProperty();
     private SimpleStringProperty endDest = new SimpleStringProperty();
