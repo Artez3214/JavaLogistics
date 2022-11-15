@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
@@ -34,7 +35,8 @@ public class MainPage implements Initializable {
     private TextField keyWordTextField2;
     @FXML
     private TextField keyWordTextField3;
-
+    @FXML
+    private TextField keyWordTextField4;
     @FXML
     private TableView<DestinationTableParams> destinationTableView;
 
@@ -83,6 +85,17 @@ public class MainPage implements Initializable {
     private TableColumn<CargoTableParams, Integer> orderIdd;
 
     ObservableList<CargoTableParams> cargoObservableList = FXCollections.observableArrayList();
+
+    @FXML
+    private TableView<UserTableParams> userTableView;
+    @FXML
+    private TableColumn<UserTableParams, Integer> userId;
+    @FXML
+    private TableColumn<UserTableParams, String> firstName;
+
+
+    ObservableList<UserTableParams> userObservableList = FXCollections.observableArrayList();
+
     public void filterOrder(){
 
         FilteredList<OrderTableParams> filteredData = new FilteredList<>(orderObservableList, b -> true);
@@ -314,6 +327,7 @@ public class MainPage implements Initializable {
       updateDestinationData();
       updateOrder();
       updateCargo();
+      updateUser();
     }
 
     public void showDestinationInsertPage(boolean IsUpdating) throws IOException {
@@ -461,5 +475,132 @@ public class MainPage implements Initializable {
 
     public void cargoUpdate(ActionEvent actionEvent) throws IOException {
         showCargoPage(true);
+    }
+    public void updateUser(){
+
+
+        userObservableList.clear();
+        DataBaseOperations connectNow = new DataBaseOperations();
+
+        Connection connection = connectNow.connectToDb();
+
+        String userViewQuery = "SELECT * FROM user";
+
+        try{
+            Statement statement = connection.createStatement();
+            ResultSet queryOutput = statement.executeQuery(userViewQuery);
+
+            while(queryOutput.next())
+            {
+                UserTableParams userTableParams = new UserTableParams();
+                userTableParams.setuId(queryOutput.getInt("userId"));
+                userTableParams.setNames(queryOutput.getString("name"));
+
+                userObservableList.add(userTableParams);
+            }
+
+            userId.setCellValueFactory(new PropertyValueFactory<>("uId"));
+            firstName.setCellValueFactory(new PropertyValueFactory<>("names"));
+
+
+            userTableView.setItems(userObservableList);
+            filterUsers();
+
+            DataBaseOperations.disconnectFromDb(connection,statement);
+        }
+        catch (SQLException e)
+        {
+            Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null,e);
+            e.printStackTrace();
+        }
+    }
+    public void filterUsers(){
+
+        FilteredList<UserTableParams> filteredData = new FilteredList<>(userObservableList, b -> true);
+
+        keyWordTextField4.textProperty().addListener((observable, oldValue, newValue) ->{
+            filteredData.setPredicate(userSearchModel -> {
+                if(newValue.isEmpty() || newValue.isBlank() || newValue ==null){
+                    return true;
+                }
+                String searchKeyword = newValue.toLowerCase();
+
+                if(String.valueOf(userSearchModel.getuId()).toLowerCase().indexOf(searchKeyword) > -1){
+                    return true;
+                } else if(userSearchModel.getNames().toString().indexOf(searchKeyword) > -1){
+                    return true;
+                }
+                 else
+                    return false;
+            });
+        });
+
+        SortedList<UserTableParams> sortedData = new SortedList<>(filteredData);
+
+        sortedData.comparatorProperty().bind(userTableView.comparatorProperty());
+
+        userTableView.setItems(sortedData);
+    }
+    public void createUser(ActionEvent actionEvent) throws IOException {
+        showUserPage(false);
+    }
+
+    public void deleteUser(ActionEvent actionEvent) {
+        UserTableParams userTableParams = userTableView.getSelectionModel().getSelectedItem();
+        try{
+            Connection connection = DataBaseOperations.connectToDb();
+            String userDeleteQuery = "DELETE FROM user WHERE userId = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(userDeleteQuery);
+            int Id  = userTableParams.getuId();
+            preparedStatement.setString(1, Integer.toString(Id));
+            preparedStatement.executeUpdate();
+            userObservableList.remove(userTableParams);
+
+        }
+        catch (SQLException e)
+        {
+            Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null,e);
+            e.printStackTrace();
+        }
+    }
+
+    public void updateUserr(ActionEvent actionEvent) throws IOException {
+        showUserPage(true);
+    }
+    private void showUserPage(boolean IsUpdating) throws IOException {
+        UserTableParams userTableParams = userTableView.getSelectionModel().getSelectedItem();
+        MainPage orderpage = this;
+        FXMLLoader fxmlLoader = new FXMLLoader(LoginPage.class.getResource("/UserData.fxml"));
+        Parent parent = fxmlLoader.load();
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        UserData controller = fxmlLoader.getController();
+
+        if(IsUpdating)
+        {
+            controller.setUserData(userTableParams);
+        }
+        controller.setDataClass(orderpage,IsUpdating);
+        stage.initOwner((Stage) userTableView.getScene().getWindow());
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
+        updateUser();
+    }
+
+    public void logout(ActionEvent actionEvent) throws IOException {
+   //     destinationTableView.getItems().clear();
+    //    destinationObservableList.clear();
+      //  cargoTableView.getItems().clear();
+      //  cargoObservableList.clear();
+     //   userTableView.getItems().clear();
+     //   userObservableList.clear();
+    //    orderTableView.getItems().clear();
+       // orderObservableList.clear();
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("/login-page.fxml"));
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }

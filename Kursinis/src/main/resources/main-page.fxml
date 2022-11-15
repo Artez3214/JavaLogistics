@@ -95,13 +95,10 @@
          <content>
             <AnchorPane fx:id="destinationpage111" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="destinationTableView111" layoutX="25.0" layoutY="130.0" prefHeight="330.0" prefWidth="843.0">
+                  <TableView fx:id="userTableView" layoutX="25.0" layoutY="127.0" prefHeight="333.0" prefWidth="579.0">
                      <columns>
-                        <TableColumn fx:id="desId111" prefWidth="148.0" text="Id" />
-                        <TableColumn fx:id="pickupDestinationAddr111" prefWidth="170.0" text="Pickup Destination Address" />
-                        <TableColumn fx:id="finalDestinationAddr111" prefWidth="171.0" text="Final Destination Address" />
-                        <TableColumn fx:id="pickupDestinationDt111" minWidth="0.0" prefWidth="170.0" text="pickup destination date" />
-                        <TableColumn fx:id="finalDestinationDt111" prefWidth="182.0" text="final destination date" />
+                        <TableColumn fx:id="userId" prefWidth="273.0" text="Id" />
+                        <TableColumn fx:id="firstName" prefWidth="305.0" text="Name" />
                      </columns>
                   </TableView>
                   <Pane layoutY="51.0" prefHeight="8.0" prefWidth="900.0" style="-fx-background-color: black;" />
@@ -110,11 +107,11 @@
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <Button layoutX="25.0" layoutY="83.0" mnemonicParsing="false" onAction="#Inserted" text="Create" />
-                  <Button layoutX="101.0" layoutY="83.0" mnemonicParsing="false" onAction="#Deleted" text="Delete" />
-                  <Button layoutX="178.0" layoutY="83.0" mnemonicParsing="false" onAction="#Updating" text="Update" />
-                  <TextField fx:id="keyWordTextField4" layoutX="632.0" layoutY="83.0" prefHeight="25.0" prefWidth="243.0" promptText="Enter pickup destination address" />
-                  <Button layoutX="605.0" layoutY="472.0" mnemonicParsing="false" text="Vehicle Information" />
+                  <Button layoutX="25.0" layoutY="83.0" mnemonicParsing="false" onAction="#createUser" text="Create" />
+                  <Button layoutX="101.0" layoutY="83.0" mnemonicParsing="false" onAction="#deleteUser" text="Delete" />
+                  <Button layoutX="178.0" layoutY="83.0" mnemonicParsing="false" onAction="#updateUserr" text="Update" />
+                  <TextField fx:id="keyWordTextField4" layoutX="361.0" layoutY="83.0" prefHeight="25.0" prefWidth="243.0" promptText="Enter pickup destination address" />
+                  <Button layoutX="657.0" layoutY="243.0" mnemonicParsing="false" text="Vehicle Information" />
                </children>
             </AnchorPane>
          </content>
@@ -143,7 +140,7 @@
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <Button layoutX="43.0" layoutY="91.0" mnemonicParsing="false" text="Logout" />
+                  <Button fx:id="logout" layoutX="43.0" layoutY="91.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
                </children>
             </AnchorPane>
          </content>

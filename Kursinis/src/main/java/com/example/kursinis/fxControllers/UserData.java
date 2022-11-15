@@ -16,36 +16,25 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class CargoData {
-
-    private int cargId;
-
+public class UserData {
     boolean IsUpdate;
-
-    private MainPage cargoPage;
-
+    private int usrId;
+    private MainPage userPagee;
     @FXML
-    private TextField CargoType;
+    private TextField name;
 
-    @FXML
-    private TextField OrderIdd;
-
-    public int getCargId() {
-        return cargId;
+    public void setUsrId(int usrId) {
+        this.usrId = usrId;
     }
 
-    public void setCargId(int cargId) {
-        this.cargId = cargId;
-    }
-
-    public void confirmCargo(ActionEvent actionEvent) {
+    public void confirmUser(ActionEvent actionEvent) {
 
         DataBaseOperations connectNow = new DataBaseOperations();
 
         Connection connection = connectNow.connectToDb();
 
-        String Query = "  UPDATE cargo SET `type` = ?, orderId = ? WHERE `cargo`.`cargoId` = ?";
-        String QueryInsert = " INSERT INTO `cargo` (`cargoId`, `type`, `orderId`) VALUES  (NULL, ?,?)";
+        String Query = "  UPDATE user SET name = ? WHERE userId = ?";
+        String QueryInsert = " INSERT INTO `user` (`userId`, `name`, `phoneNumber`, `emailAddress`, `birthDay`, `username`, `password`, `isRetired`, `salary`, `currency`) VALUES  (NULL, ?,0,' ',' ',' ',' ',0,0,' ')";
 
         try{
 
@@ -53,15 +42,13 @@ public class CargoData {
             if (!IsUpdate) {
 
                 PreparedStatement preparedStatement2 = connection.prepareStatement(QueryInsert);
-                preparedStatement2.setString(1, CargoType.getText());
-                preparedStatement2.setString(2, OrderIdd.getText());
+                preparedStatement2.setString(1, name.getText());
                 preparedStatement2.executeUpdate();
             }
             else{
                 PreparedStatement preparedStatement = connection.prepareStatement(Query);
-                preparedStatement.setString(1, CargoType.getText());
-                preparedStatement.setString(2, OrderIdd.getText());
-                preparedStatement.setString(3, Integer.toString(cargId));
+                preparedStatement.setString(1, name.getText());
+                preparedStatement.setInt(2, usrId);
 
                 preparedStatement.executeUpdate();
 
@@ -72,7 +59,7 @@ public class CargoData {
             Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null,e);
             e.printStackTrace();
         }
-        cargoPage.updateCargo();
+        userPagee.updateUser();
     }
 
     public void cancel(ActionEvent actionEvent) throws IOException {
@@ -82,18 +69,13 @@ public class CargoData {
 
         stage.close();
     }
-
-    public void setCargoData(CargoTableParams cargoTableParams) {
-        CargoType.setText(cargoTableParams.getType());
-        setCargId(cargoTableParams.getCargId());
-        OrderIdd.setText(Integer.toString(cargoTableParams.getOrderIdd()));
-
+    public void setUserData(UserTableParams userTableParams) {
+        name.setText(userTableParams.getNames());
+        setUsrId(userTableParams.getuId());
     }
 
-    public void setDataClass(MainPage cargopage,boolean isUpdate) {
-
-        cargoPage = cargopage;
-
-        IsUpdate = isUpdate;
+    public void setDataClass(MainPage userPage, boolean isUpdating) {
+        userPagee = userPage;
+        IsUpdate = isUpdating;
     }
 }
