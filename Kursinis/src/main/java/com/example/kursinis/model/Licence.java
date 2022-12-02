@@ -4,16 +4,18 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Currency;
 
-public class Licence extends Driver implements Serializable {
+public class Licence implements Serializable {
     private LocalDate dateEnding;
     private LocalDate dateAquired;
     private String category;
 
-    public Licence(String login, String name, String phoneNumber, String emailAddress, LocalDate birthDay, String username, String password, boolean isRetired, float salary, Currency currency, LocalDate healthEndDate, LocalDate driverLicenceEndDate, LocalDate dateEnding, LocalDate dateAquired, String category) {
-        super(login, name, phoneNumber, emailAddress, birthDay, username, password, isRetired, salary, currency, healthEndDate, driverLicenceEndDate);
+    private int id;
+
+    public Licence(int id,LocalDate dateEnding, LocalDate dateAquired, String category) {
         this.dateEnding = dateEnding;
         this.dateAquired = dateAquired;
         this.category = category;
+        this.id = id;
     }
 
     public LocalDate getDateEnding() {

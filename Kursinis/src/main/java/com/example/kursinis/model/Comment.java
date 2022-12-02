@@ -6,9 +6,12 @@ public class Comment implements Serializable {
     private int commentId;
     private String text;
 
-    public Comment(int commentId, String text) {
+    private int forumId;
+
+    public Comment(int commentId, String text, int forumId) {
         this.commentId = commentId;
         this.text = text;
+        this.forumId = forumId;
     }
 
     public int getCommentId() {
@@ -25,5 +28,13 @@ public class Comment implements Serializable {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public int getForumId() {
+        return forumId;
+    }
+
+    public void setForumId(int forumId) {
+        this.forumId = forumId;
     }
 }

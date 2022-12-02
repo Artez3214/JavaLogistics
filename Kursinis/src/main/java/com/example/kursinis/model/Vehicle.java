@@ -15,7 +15,8 @@ public class Vehicle implements Serializable {
     private String ensurance;
     private LocalDate dateCreated;
 
-    public Vehicle(String type, String carNumber, String wheels, float locationDegreeX, float locationDegreeY, String carName, String manufacturer, String ensurance, LocalDate dateCreated) {
+    public Vehicle(String vehicleId, String type, String carNumber, String wheels, float locationDegreeX, float locationDegreeY, String carName, String manufacturer, String ensurance, LocalDate dateCreated) {
+        VehicleId = vehicleId;
         this.type = type;
         this.carNumber = carNumber;
         this.wheels = wheels;
@@ -26,6 +27,8 @@ public class Vehicle implements Serializable {
         this.ensurance = ensurance;
         this.dateCreated = dateCreated;
     }
+
+
 
     public String getVehicleId() {
         return VehicleId;
