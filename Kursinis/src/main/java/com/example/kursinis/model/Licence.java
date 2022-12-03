@@ -5,32 +5,35 @@ import java.time.LocalDate;
 import java.util.Currency;
 
 public class Licence implements Serializable {
-    private LocalDate dateEnding;
-    private LocalDate dateAquired;
+    private String dateEnding;
+    private String dateAquired;
     private String category;
+
+    private int userId;
 
     private int id;
 
-    public Licence(int id,LocalDate dateEnding, LocalDate dateAquired, String category) {
+    public Licence(int id,String dateEnding, String dateAquired, String category,Integer userId) {
         this.dateEnding = dateEnding;
         this.dateAquired = dateAquired;
         this.category = category;
         this.id = id;
+        this.userId = userId;
     }
 
-    public LocalDate getDateEnding() {
+    public String getDateEnding() {
         return dateEnding;
     }
 
-    public void setDateEnding(LocalDate dateEnding) {
+    public void setDateEnding(String dateEnding) {
         this.dateEnding = dateEnding;
     }
 
-    public LocalDate getDateAquired() {
+    public String getDateAquired() {
         return dateAquired;
     }
 
-    public void setDateAquired(LocalDate dateAquired) {
+    public void setDateAquired(String dateAquired) {
         this.dateAquired = dateAquired;
     }
 

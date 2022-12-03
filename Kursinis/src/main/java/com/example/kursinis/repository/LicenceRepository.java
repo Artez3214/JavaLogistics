@@ -1,6 +1,5 @@
 package com.example.kursinis.repository;
 
-import com.example.kursinis.model.Destination;
 import com.example.kursinis.model.Licence;
 
 import java.util.List;

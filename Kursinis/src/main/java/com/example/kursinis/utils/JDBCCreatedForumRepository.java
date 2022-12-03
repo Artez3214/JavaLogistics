@@ -1,6 +1,5 @@
 package com.example.kursinis.utils;
 
-import com.example.kursinis.model.Cargo;
 import com.example.kursinis.model.CreatedForum;
 import com.example.kursinis.repository.CreatedForumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +19,8 @@ public class JDBCCreatedForumRepository implements CreatedForumRepository {
                 (rs,rowNum) ->
                         new CreatedForum(
                                 rs.getInt("forumId"),
-                                rs.getString("forumTopic")
-                        )
+                                rs.getString("forumTopic"),
+                                rs.getInt("userId"))
         );
     }
     @Override

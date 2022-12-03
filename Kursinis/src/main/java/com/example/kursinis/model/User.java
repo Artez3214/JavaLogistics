@@ -10,14 +10,14 @@ public class User implements Serializable {
     private String name;
     private String phoneNumber;
     private String emailAddress;
-    private LocalDate birthDay;
+    private String birthDay;
     private String username;
     private String password;
     private boolean isRetired;
     private float salary;
-    private Currency currency;
+    private String currency;
 
-    public User(String userId, String name, String phoneNumber, String emailAddress, LocalDate birthDay, String username, String password, boolean isRetired, float salary, Currency currency) {
+    public User(String userId, String name, String phoneNumber, String emailAddress, String birthDay, String username, String password, boolean isRetired, float salary, String currency) {
         this.userId = userId;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -62,11 +62,11 @@ public class User implements Serializable {
         this.emailAddress = emailAddress;
     }
 
-    public LocalDate getBirthDay() {
+    public String getBirthDay() {
         return birthDay;
     }
 
-    public void setBirthDay(LocalDate birthDay) {
+    public void setBirthDay(String birthDay) {
         this.birthDay = birthDay;
     }
 
@@ -102,11 +102,11 @@ public class User implements Serializable {
         this.salary = salary;
     }
 
-    public Currency getCurrency() {
+    public String getCurrency() {
         return currency;
     }
 
-    public void setCurrency(Currency currency) {
+    public void setCurrency(String currency) {
         this.currency = currency;
     }
 }

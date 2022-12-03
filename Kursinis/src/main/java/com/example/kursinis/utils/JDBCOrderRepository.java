@@ -18,7 +18,7 @@ public class JDBCOrderRepository implements OrderRepository {
     @Override
     public List<Order> findAll() {
         return jdbcTemplate.query(
-                "select * from order",
+                "SELECT * FROM `order` WHERE 1",
                 (rs,rowNum) ->
                         new Order(
                                 rs.getInt("orderId"),

@@ -22,7 +22,8 @@ public class JDBCCommentRepository implements CommentRepository {
                 (rs,rowNum) ->
                         new Comment(
                                 rs.getInt("commentId"),
-                                rs.getString("text")
+                                rs.getString("text"),
+                                rs.getInt("forumId")
                         )
         );
     }

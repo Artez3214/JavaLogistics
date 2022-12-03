@@ -30,7 +30,7 @@ public class JDBCVehicleRepository implements VehicleRepository {
                                 rs.getString("name"),
                                 rs.getString("company"),
                                 rs.getString("ensurance"),
-                                LocalDate.parse(rs.getString("dateCreated"))
+                                rs.getString("dateCreated")
                         )
         );
     }

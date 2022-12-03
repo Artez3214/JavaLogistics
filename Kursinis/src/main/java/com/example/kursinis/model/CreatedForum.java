@@ -6,7 +6,7 @@ public class CreatedForum implements Serializable {
     private int forumId;
     private String forumTopic;
 
-    public CreatedForum(int forumId, String forumTopic) {
+    public CreatedForum(int forumId, String forumTopic, Integer userId) {
         this.forumId = forumId;
         this.forumTopic = forumTopic;
     }

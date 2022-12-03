@@ -8,7 +8,7 @@ public class Manager extends User implements Serializable {
     private int managedDrivers;
     private String Company;
 
-    public Manager(String login, String name, String phoneNumber, String emailAddress, LocalDate birthDay, String username, String password, boolean isRetired, float salary, Currency currency, int managedDrivers) {
+    public Manager(String login, String name, String phoneNumber, String emailAddress, String birthDay, String username, String password, boolean isRetired, float salary, String currency, int managedDrivers) {
         super(login, name, phoneNumber, emailAddress, birthDay, username, password, isRetired, salary, currency);
         this.managedDrivers = managedDrivers;
     }

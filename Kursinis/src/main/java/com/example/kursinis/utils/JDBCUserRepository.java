@@ -26,12 +26,12 @@ public class JDBCUserRepository implements UserRepository {
                                 rs.getString("name"),
                                 rs.getString("phoneNumber"),
                                 rs.getString("emailAddress"),
-                                LocalDate.parse(rs.getString("birthDay")),
+                                rs.getString("birthDay"),
                                 rs.getString("username"),
                                 rs.getString("password"),
                                 rs.getBoolean("isRetired"),
                                 rs.getInt("salary"),
-                                Currency.getInstance(rs.getString("currency"))
+                                rs.getString("currency")
                         )
         );
     }

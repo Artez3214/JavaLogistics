@@ -6,10 +6,11 @@ import com.example.kursinis.repository.LicenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
-
+@Repository
 public class JDBCLicenceRepository implements LicenceRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -21,9 +22,10 @@ public class JDBCLicenceRepository implements LicenceRepository {
                 (rs,rowNum) ->
                         new Licence(
                                 rs.getInt("licenceId"),
-                                LocalDate.parse(rs.getString("dateEnding")),
-                                LocalDate.parse(rs.getString("dateAcquireq")),
-                                rs.getString("category")
+                                rs.getString("dateEnding"),
+                                rs.getString("dateAcquireq"),
+                                rs.getString("category"),
+                                rs.getInt("userId")
                         )
         );
     }
